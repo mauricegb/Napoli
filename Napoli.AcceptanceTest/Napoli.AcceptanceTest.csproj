@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Drivers\**" />
+    <Compile Remove="Hooks\**" />
+    <EmbeddedResource Remove="Drivers\**" />
+    <EmbeddedResource Remove="Hooks\**" />
+    <None Remove="Drivers\**" />
+    <None Remove="Hooks\**" />
+    <SpecFlowFeatureFiles Remove="Drivers\**" />
+    <SpecFlowFeatureFiles Remove="Hooks\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Drivers\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Hooks\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.7.10" />
 
@@ -23,11 +36,6 @@
     
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Drivers\" />
-    <Folder Include="Hooks\" />
   </ItemGroup>
 
   <ItemGroup>
