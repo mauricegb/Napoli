@@ -22,7 +22,13 @@ namespace Napoli.Application.Extensions.Input
                     (nameof(input), $"The input entered ({input}) was not valid, please enter a valid value - ({string.Join(',', validInput)})");
             }
 
-            return int.Parse(input);
+            if (!int.TryParse(input, out int result))
+            {
+                throw new ArgumentException
+                    ($"The input ({input}) could not be parsed to a whole number, please enter a valid value - ({string.Join(',', validInput)})", nameof(input));
+            }
+
+            return result;
         }
     }
 }

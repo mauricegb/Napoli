@@ -1,4 +1,5 @@
-﻿using Napoli.Application.Extensions.Input;
+﻿using System;
+using Napoli.Application.Extensions.Input;
 using Napoli.Entities;
 using Napoli.Entities.Interfaces;
 
@@ -19,7 +20,11 @@ namespace Napoli.Application
 
         public static void RemoveCourse(string courseId, IOrder order)
         {
-            var processedCourseId = int.Parse(courseId);
+            if (!int.TryParse(courseId, out int processedCourseId))
+            {
+                throw new ArgumentException($"The courseId input {courseId} was not a valid integer.",
+                    nameof(courseId));
+            }
 
             order.DeleteCourse(processedCourseId);
         }
@@ -27,7 +32,12 @@ namespace Napoli.Application
         public static int EditCourse(string courseId, string courseName, string courseType, IOrder order)
         {
             var processedCourseType = courseType.ToCourseType();
-            var processedCourseId = int.Parse(courseId);
+
+            if (!int.TryParse(courseId, out int processedCourseId))
+            {
+                throw new ArgumentException($"The courseId input {courseId} was not a valid integer.",
+                    nameof(courseId));
+            }
 
             var course = new Course(processedCourseType, courseName);
 

@@ -70,6 +70,16 @@ namespace Napoli.Test.Application
         }
 
         [Fact]
+        public void RemoveANonExistentCourseTooLargeId_ShouldThrow()
+        {
+            var order = new Order();
+            const string tooLargeCourseId = "34242342342342355";
+
+            var ex = Assert.Throws<ArgumentException>(() => OrderManager.RemoveCourse(tooLargeCourseId, order));
+            Assert.Contains($"The courseId input {tooLargeCourseId} was not a valid integer.", ex.Message);
+        }
+
+        [Fact]
         public void EditAValidCourse_ShouldReturnSameId()
         {
             var order = new Order();
@@ -105,6 +115,19 @@ namespace Napoli.Test.Application
 
             var ex = Assert.Throws<ArgumentNullException>(() => OrderManager.EditCourse("3242423", newCourseName, string.Empty, order));
             Assert.Contains("The input for course type was null or empty, please remember to enter a value", ex.Message);
+        }
+
+        [Fact]
+        public void EditACourse_TooLargeCourseIdShouldThrow()
+        {
+            var order = new Order();
+
+            const string newCourseName = "my new course name";
+            const string newCourseType = "starter";
+            const string tooLargeCourseId = "324242353453453";
+
+            var ex = Assert.Throws<ArgumentException>(() => OrderManager.EditCourse(tooLargeCourseId, newCourseName, newCourseType, order));
+            Assert.Contains($"The courseId input {tooLargeCourseId} was not a valid integer.", ex.Message);
         }
 
         [Fact]
